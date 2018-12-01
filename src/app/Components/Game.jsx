@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import { GameBoard } from './GameBoard/GameBoard';
 import { GameMenu } from './GameMenu/GameMenu';
 
-import { initBoard } from '../Actions/BoardActions/BoardActions';
+import { initBoard, openCell } from '../Actions/BoardActions/BoardActions';
 
 class Game extends React.Component {
     render() {
         console.log(this.props);
         return <div>
             <GameMenu onPlayClick={this.props.onPlayClick} />
-            <GameBoard boardStore={this.props.boardStore} />
+            <GameBoard 
+                onOpenCell={this.props.onOpenCell}
+                boardStore={this.props.boardStore} />
         </div>
     }
 }
@@ -27,6 +29,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onPlayClick: () => {
             dispatch(initBoard(5, 6, 10))
+        },
+        onOpenCell: (position) => {
+            dispatch(openCell(position));
         }
     }
 }

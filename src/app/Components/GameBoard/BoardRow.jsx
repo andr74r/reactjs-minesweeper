@@ -8,11 +8,16 @@ export class BoardRow extends React.Component {
         let boardRow = this.props.boardRow;
 
         return <tr>
-            {boardRow.map(c => <BoardCell key={`cell${c.position.x}${c.position.y}`} cell={c}/>)}
+            {boardRow.map(c => 
+                <BoardCell 
+                    key={`cell${c.position.x}${c.position.y}`} 
+                    cell={c}
+                    onOpenCell={this.props.onOpenCell}/>)}
         </tr>
     }
 }
 
 BoardRow.propTypes = {
-    boardRow: PropTypes.array
+    boardRow: PropTypes.array,
+    onOpenCell: PropTypes.func
 };

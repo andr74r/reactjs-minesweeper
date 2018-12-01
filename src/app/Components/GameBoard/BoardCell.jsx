@@ -5,11 +5,19 @@ export class BoardCell extends React.Component {
     render() {
         let cell = this.props.cell;
         return <td>
-            {!cell.isMine ? cell.value : 'm'}
+            <button style={{height: 25, width: 25}} onClick={() => this.props.onOpenCell(cell.position)}>
+                {
+                    cell.isOpened
+                        ? !cell.isMine 
+                            ? cell.value 
+                            : 'm'
+                        : '' }
+            </button>
         </td>
     }
 }
 
 BoardCell.propTypes = {
-    cell: PropTypes.object
+    cell: PropTypes.object,
+    onOpenCell: PropTypes.func
 };

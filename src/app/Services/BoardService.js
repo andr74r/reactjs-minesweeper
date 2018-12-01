@@ -87,5 +87,11 @@ export const boardService = {
         };
 
         return board;
+    },
+    openCell: (position, board) => {
+        let cell = board.cells[position.x][position.y];
+        cell.isOpened = true;
+
+        return {...board};
     }
 }

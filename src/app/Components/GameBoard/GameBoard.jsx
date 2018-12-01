@@ -10,7 +10,13 @@ export class GameBoard extends React.Component {
         return <div>
             <table>
                 <tbody>
-                    {!!cells ? cells.map((row, i) => <BoardRow key={`row${i}`} boardRow={row}/>) : null}
+                    {!!cells 
+                        ? cells.map((row, i) => 
+                            <BoardRow 
+                                key={`row${i}`} 
+                                boardRow={row} 
+                                onOpenCell={this.props.onOpenCell} />) 
+                        : null}
                 </tbody>
             </table>
         </div>
@@ -18,5 +24,6 @@ export class GameBoard extends React.Component {
 }
 
 GameBoard.propTypes = {
-    boardStore: PropTypes.object
+    boardStore: PropTypes.object,
+    onOpenCell: PropTypes.func
 };
