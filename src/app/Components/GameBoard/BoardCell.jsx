@@ -5,7 +5,10 @@ export class BoardCell extends React.Component {
     render() {
         let cell = this.props.cell;
         return <td>
-            <button style={{height: 25, width: 25}} onClick={() => this.props.onOpenCell(cell.position)}>
+            <button 
+                style={{height: 25, width: 25}} 
+                onClick={() => this.props.onOpenCell(cell.position)}
+                disabled={this.props.isBoardLocked || cell.isOpened}>
                 {
                     cell.isOpened
                         ? !cell.isMine 
@@ -19,5 +22,6 @@ export class BoardCell extends React.Component {
 
 BoardCell.propTypes = {
     cell: PropTypes.object,
-    onOpenCell: PropTypes.func
+    onOpenCell: PropTypes.func,
+    isBoardLocked: PropTypes.bool
 };

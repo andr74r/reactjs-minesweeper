@@ -83,7 +83,8 @@ export const boardService = {
             cells: cells,
             height: height,
             width: width,
-            minesCount: minesCount
+            minesCount: minesCount,
+            isLocked: false
         };
 
         return board;
@@ -93,5 +94,10 @@ export const boardService = {
         cell.isOpened = true;
 
         return {...board};
-    }
+    },
+    changeLockState: (value, board) => {
+        board.isLocked = value;
+
+        return {...board};
+    } 
 }

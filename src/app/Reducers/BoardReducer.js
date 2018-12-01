@@ -1,4 +1,4 @@
-import { INIT_BOARD, OPEN_CELL } from '../Actions/BoardActions/BoardActionTypes';
+import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE } from '../Actions/BoardActions/BoardActionTypes';
 
 import { boardService } from '../Services/BoardService';
 
@@ -8,6 +8,8 @@ export const boardReducer = function (state = {}, action) {
             return boardService.initBoard(action.size);
         case OPEN_CELL:
             return boardService.openCell(action.position, state);
+        case CHANGE_LOCK_STATE:
+            return boardService.changeLockState(action.value, state);
         default:
             return state;
     }

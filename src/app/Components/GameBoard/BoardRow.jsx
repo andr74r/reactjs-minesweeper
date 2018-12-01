@@ -10,8 +10,9 @@ export class BoardRow extends React.Component {
         return <tr>
             {boardRow.map(c => 
                 <BoardCell 
-                    key={`cell${c.position.x}${c.position.y}`} 
+                    key={`cell${c.position.x}${c.position.y}`}
                     cell={c}
+                    isBoardLocked={this.props.isBoardLocked}
                     onOpenCell={this.props.onOpenCell}/>)}
         </tr>
     }
@@ -19,5 +20,6 @@ export class BoardRow extends React.Component {
 
 BoardRow.propTypes = {
     boardRow: PropTypes.array,
-    onOpenCell: PropTypes.func
+    onOpenCell: PropTypes.func,
+    isBoardLocked: PropTypes.bool
 };

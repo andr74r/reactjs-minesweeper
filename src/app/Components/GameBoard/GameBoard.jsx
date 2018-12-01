@@ -6,16 +6,18 @@ import { BoardRow } from './BoardRow';
 export class GameBoard extends React.Component {
     render() {
         let cells = this.props.boardStore.cells;
+        let isBoardLocked = this.props.boardStore.isLocked;
 
         return <div>
             <table>
                 <tbody>
-                    {!!cells 
-                        ? cells.map((row, i) => 
-                            <BoardRow 
-                                key={`row${i}`} 
-                                boardRow={row} 
-                                onOpenCell={this.props.onOpenCell} />) 
+                    {!!cells
+                        ? cells.map((row, i) =>
+                            <BoardRow
+                                key={`row${i}`}
+                                boardRow={row}
+                                isBoardLocked={isBoardLocked}
+                                onOpenCell={this.props.onOpenCell} />)
                         : null}
                 </tbody>
             </table>
