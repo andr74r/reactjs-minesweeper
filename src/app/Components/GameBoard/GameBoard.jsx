@@ -9,7 +9,9 @@ export class GameBoard extends React.Component {
 
         return <div>
             <table>
-                {cells.map((row, i) => <BoardRow key={`row${i}`} boardRow={row}/>)}
+                <tbody>
+                    {cells.map((row, i) => <BoardRow key={`row${i}`} boardRow={row}/>)}
+                </tbody>
             </table>
         </div>
     }
