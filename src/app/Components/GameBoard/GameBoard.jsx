@@ -5,12 +5,12 @@ import { BoardRow } from './BoardRow';
 
 export class GameBoard extends React.Component {
     render() {
-        let cells = this.props.boardStore;
+        let cells = this.props.boardStore.cells;
 
         return <div>
             <table>
                 <tbody>
-                    {cells.map((row, i) => <BoardRow key={`row${i}`} boardRow={row}/>)}
+                    {!!cells ? cells.map((row, i) => <BoardRow key={`row${i}`} boardRow={row}/>) : null}
                 </tbody>
             </table>
         </div>
@@ -18,5 +18,5 @@ export class GameBoard extends React.Component {
 }
 
 GameBoard.propTypes = {
-    boardStore: PropTypes.array
+    boardStore: PropTypes.object
 };
