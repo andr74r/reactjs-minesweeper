@@ -1,15 +1,46 @@
-import { filter, mapTo } from 'rxjs/operators';
+import { filter, mapTo, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 import { ofType } from 'redux-observable';
 
-import { OPEN_CELL } from '../Actions/BoardActions/BoardActionTypes';
+import { OPEN_CELL, INIT_BOARD } from '../Actions/BoardActions/BoardActionTypes';
 import { blockBoard } from '../Actions/BoardActions/BoardActions';
+import { finishGame, startGame } from '../Actions/GameActions/GameActions';
 
-export const openCellEpic = (action, state) => action.pipe(
+export const openMineEpic = (action, state) => action.pipe(
     ofType(OPEN_CELL),
     filter(action => {
         let position = action.position;
         let cell = state.value.boardStore.cells[position.x][position.y];
         return cell.isMine;
     }),
-    mapTo(blockBoard())
+    mergeMap(() => of(
+        blockBoard(),
+        finishGame(false)
+    ))
+);
+
+export const openLastCellEpic = (action, state) => action.pipe(
+    ofType(OPEN_CELL),
+    filter(action => {
+        let boardStore = state.value.boardStore;
+        let cells = boardStore.cells;
+        let notMineCellsCount =  boardStore.height * boardStore.width - boardStore.minesCount;
+        let openedNotMineCellsCount = 0;
+        
+        cells
+            .forEach(row => openedNotMineCellsCount += row
+                .filter(cell => !cell.isMine && cell.isOpened)
+                .length);
+        
+        return openedNotMineCellsCount == notMineCellsCount;
+    }),
+    mergeMap(() => of(
+        blockBoard(),
+        finishGame(true)
+    ))
+);
+
+export const initBoardEpic = (action, state) => action.pipe(
+    ofType(INIT_BOARD),
+    mapTo(startGame())
 );

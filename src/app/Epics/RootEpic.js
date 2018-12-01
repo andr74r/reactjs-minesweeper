@@ -1,8 +1,10 @@
 import { combineEpics } from 'redux-observable';
 
-import { openCellEpic } from './BoardEpics'
+import { openMineEpic, openLastCellEpic, initBoardEpic } from './BoardEpics'
 
 
 export const rootEpic = combineEpics(
-    openCellEpic
+    openMineEpic,
+    openLastCellEpic,
+    initBoardEpic
 );

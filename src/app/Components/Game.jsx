@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { GameBoard } from './GameBoard/GameBoard';
 import { GameMenu } from './GameMenu/GameMenu';
+import { MessageContainer } from './Messages/MessageContainer';
 
 import { initBoard, openCell } from '../Actions/BoardActions/BoardActions';
 
@@ -11,6 +12,9 @@ class Game extends React.Component {
         console.log(this.props);
         return <div>
             <GameMenu onPlayClick={this.props.onPlayClick} />
+            <MessageContainer 
+                isGameFinished={this.props.gameStore.isGameFinished}
+                isWin={this.props.gameStore.isWin} />
             <GameBoard 
                 onOpenCell={this.props.onOpenCell}
                 boardStore={this.props.boardStore} />
@@ -21,14 +25,15 @@ class Game extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        boardStore: state.boardStore
+        boardStore: state.boardStore,
+        gameStore: state.gameStore
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onPlayClick: () => {
-            dispatch(initBoard(5, 6, 10))
+            dispatch(initBoard(5, 6, 5))
         },
         onOpenCell: (position) => {
             dispatch(openCell(position));
