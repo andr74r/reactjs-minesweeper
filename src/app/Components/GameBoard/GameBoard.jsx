@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { BoardRow } from './BoardRow';
 
 export class GameBoard extends React.Component {
@@ -12,3 +14,7 @@ export class GameBoard extends React.Component {
         </div>
     }
 }
+
+GameBoard.propTypes = {
+    boardStore: PropTypes.array
+};

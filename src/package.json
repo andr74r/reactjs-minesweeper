@@ -8,6 +8,7 @@
     "build": "webpack"
   },
   "dependencies": {
+    "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-redux": "^5.1.1",

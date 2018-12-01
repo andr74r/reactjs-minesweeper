@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { BoardCell } from './BoardCell';
 
 export class BoardRow extends React.Component {
@@ -10,3 +12,7 @@ export class BoardRow extends React.Component {
         </tr>
     }
 }
+
+BoardRow.propTypes = {
+    boardRow: PropTypes.array
+};

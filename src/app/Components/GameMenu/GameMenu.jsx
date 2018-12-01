@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class GameMenu extends React.Component {
     render() {
@@ -9,3 +10,7 @@ export class GameMenu extends React.Component {
         </div>
     }
 }
+
+GameMenu.propTypes = {
+    onPlayClick: PropTypes.func
+};
