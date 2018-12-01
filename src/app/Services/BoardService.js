@@ -56,7 +56,8 @@ export const boardService = {
             height: height,
             width: width,
             minesCount: minesCount,
-            isLocked: false
+            isLocked: false,
+            hasFlag: false
         };
 
         return board;
@@ -74,6 +75,13 @@ export const boardService = {
     },
     openNearZero: (position, board) => {
         openNearZeroUsingBFS(position, board);
+
+        return {...board};
+    },
+    updateFlagState: (position, board) => {
+        let cell = board.cells[position.x][position.y];
+
+        cell.hasFlag = !cell.hasFlag;
 
         return {...board};
     }

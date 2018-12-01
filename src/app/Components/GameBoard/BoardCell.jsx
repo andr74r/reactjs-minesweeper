@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 export class BoardCell extends React.Component {
 
+    constructor(props){
+        super(props);
+
+        this.onLeftClick = this.onLeftClick.bind(this);
+    }
+
     getButtonStyle(cell){
         return {
             height: 25, 
@@ -15,21 +21,38 @@ export class BoardCell extends React.Component {
         }
     }
 
+    onClick(e, cell) {
+        this.props.onOpenCell(cell.position);
+    }
+    
+    onLeftClick(e) {
+        let position = this.props.cell.position;
+        
+        this.props.onUpdateFlagState(position);
+        
+        e.preventDefault();
+        return false;
+    }
+
+    getButtonText(cell) {
+        if (!cell.isOpened)
+            return cell.hasFlag ? 'F' : '';
+
+        if (cell.isMine)
+            return 'M';
+
+        return cell.value != 0 ? cell.value : '';
+    }
+
     render() {
         let cell = this.props.cell;
         return <td>
             <button 
                 style={this.getButtonStyle(cell)} 
-                onClick={() => this.props.onOpenCell(cell.position)}
+                onClick={(e) => this.onClick(e, cell)}
+                onContextMenu={this.onLeftClick}
                 disabled={this.props.isBoardLocked || cell.isOpened}>
-                {
-                    cell.isOpened
-                        ? !cell.isMine 
-                            ? cell.value != 0 
-                                ? cell.value
-                                : ''
-                            : 'm'
-                        : '' }
+                {this.getButtonText(cell)}
             </button>
         </td>
     }
@@ -38,5 +61,6 @@ export class BoardCell extends React.Component {
 BoardCell.propTypes = {
     cell: PropTypes.object,
     onOpenCell: PropTypes.func,
-    isBoardLocked: PropTypes.bool
+    isBoardLocked: PropTypes.bool,
+    onUpdateFlagState: PropTypes.func
 };

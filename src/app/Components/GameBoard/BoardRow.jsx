@@ -13,7 +13,8 @@ export class BoardRow extends React.Component {
                     key={`cell${c.position.x}${c.position.y}`}
                     cell={c}
                     isBoardLocked={this.props.isBoardLocked}
-                    onOpenCell={this.props.onOpenCell}/>)}
+                    onOpenCell={this.props.onOpenCell}
+                    onUpdateFlagState={this.props.onUpdateFlagState}/>)}
         </tr>
     }
 }
@@ -21,5 +22,6 @@ export class BoardRow extends React.Component {
 BoardRow.propTypes = {
     boardRow: PropTypes.array,
     onOpenCell: PropTypes.func,
-    isBoardLocked: PropTypes.bool
+    isBoardLocked: PropTypes.bool,
+    onUpdateFlagState: PropTypes.func
 };

@@ -5,7 +5,7 @@ import { GameBoard } from './GameBoard/GameBoard';
 import { GameMenu } from './GameMenu/GameMenu';
 import { MessageContainer } from './Messages/MessageContainer';
 
-import { initBoard, openCell } from '../Actions/BoardActions/BoardActions';
+import { initBoard, openCell, updateFlagState } from '../Actions/BoardActions/BoardActions';
 
 class Game extends React.Component {
     render() {
@@ -17,7 +17,8 @@ class Game extends React.Component {
                 isWin={this.props.gameStore.isWin} />
             <GameBoard 
                 onOpenCell={this.props.onOpenCell}
-                boardStore={this.props.boardStore} />
+                boardStore={this.props.boardStore}
+                onUpdateFlagState={this.props.onUpdateFlagState} />
         </div>
     }
 }
@@ -37,6 +38,9 @@ const mapDispatchToProps = dispatch => {
         },
         onOpenCell: (position) => {
             dispatch(openCell(position));
+        },
+        onUpdateFlagState: (position) => {
+            dispatch(updateFlagState(position));
         }
     }
 }

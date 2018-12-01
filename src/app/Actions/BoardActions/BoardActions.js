@@ -1,4 +1,4 @@
-import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE, OPEN_NEAR_ZERO } from './BoardActionTypes';
+import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE, OPEN_NEAR_ZERO, UPDATE_FLAG_STATE } from './BoardActionTypes';
 
 export const initBoard = (height, width, minesCount) => {
     return {
@@ -36,5 +36,12 @@ export const unlockBoard = () => {
     return {
         type: CHANGE_LOCK_STATE,
         value: false
+    }
+}
+
+export const updateFlagState = (position) => {
+    return {
+        type: UPDATE_FLAG_STATE,
+        position: position
     }
 }

@@ -17,7 +17,8 @@ export class GameBoard extends React.Component {
                                 key={`row${i}`}
                                 boardRow={row}
                                 isBoardLocked={isBoardLocked}
-                                onOpenCell={this.props.onOpenCell} />)
+                                onOpenCell={this.props.onOpenCell}
+                                onUpdateFlagState={this.props.onUpdateFlagState} />)
                         : null}
                 </tbody>
             </table>
@@ -27,5 +28,6 @@ export class GameBoard extends React.Component {
 
 GameBoard.propTypes = {
     boardStore: PropTypes.object,
-    onOpenCell: PropTypes.func
+    onOpenCell: PropTypes.func,
+    onUpdateFlagState: PropTypes.func
 };
