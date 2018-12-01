@@ -2,11 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export class BoardCell extends React.Component {
+
+    getButtonStyle(cell){
+        return {
+            height: 25, 
+            width: 25, 
+            backgroundColor: cell.isOpened 
+                ? !cell.isMine 
+                    ? '#90EE90'
+                    : '#FF5050'
+                : '#20B2AA'
+        }
+    }
+
     render() {
         let cell = this.props.cell;
         return <td>
             <button 
-                style={{height: 25, width: 25}} 
+                style={this.getButtonStyle(cell)} 
                 onClick={() => this.props.onOpenCell(cell.position)}
                 disabled={this.props.isBoardLocked || cell.isOpened}>
                 {
