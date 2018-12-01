@@ -12,7 +12,9 @@ export class BoardCell extends React.Component {
                 {
                     cell.isOpened
                         ? !cell.isMine 
-                            ? cell.value 
+                            ? cell.value != 0 
+                                ? cell.value
+                                : ''
                             : 'm'
                         : '' }
             </button>

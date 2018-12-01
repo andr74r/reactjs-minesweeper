@@ -1,4 +1,4 @@
-import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE } from './BoardActionTypes';
+import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE, OPEN_NEAR_ZERO } from './BoardActionTypes';
 
 export const initBoard = (height, width, minesCount) => {
     return {
@@ -14,6 +14,13 @@ export const initBoard = (height, width, minesCount) => {
 export const openCell = (position) => {
     return {
         type: OPEN_CELL,
+        position: position
+    }
+}
+
+export const openNearZero = (position) => {
+    return {
+        type: OPEN_NEAR_ZERO,
         position: position
     }
 }
