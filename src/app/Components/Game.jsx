@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPlayClick: () => {
-            dispatch(initBoard(4, 4, 4))
+            dispatch(initBoard(5, 6, 10))
         }
     }
 }
