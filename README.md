@@ -1,6 +1,6 @@
 ReactJS minesweeper.
 
-List of techologes that were used:
+List of technologies that were used:
  - ReactJS
  - Redux
  - RxJS (redux-observable)
