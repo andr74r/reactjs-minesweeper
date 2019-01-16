@@ -6,14 +6,20 @@ import { GameMenu } from './GameMenu/GameMenu';
 import { MessageContainer } from './Messages/MessageContainer';
 
 import { initBoard, openCell, updateFlagState } from '../Actions/BoardActions/BoardActions';
-import { incrementSeconds } from '../Actions/TImerActions/TimerActions'; 
+import { incrementSeconds } from '../Actions/TimerActions/TimerActions';
+import { addScore } from '../Actions/TopScoresActions/TopScoresAcions';
 
 class Game extends React.Component {
     constructor(props)
     {
         super(props);
 
-        setInterval(props.incrementTimer, 1000);
+        this.interval = setInterval(props.incrementTimer, 1000);
+    }
+
+    componentWillUnmount() {
+        if (!!this.interval)
+            clearInterval(this.interval);
     }
 
 
@@ -26,7 +32,9 @@ class Game extends React.Component {
                 timer={this.props.timerStore} />
             <MessageContainer 
                 isGameFinished={this.props.gameStore.isGameFinished}
-                isWin={this.props.gameStore.isWin} />
+                isWin={this.props.gameStore.isWin}
+                seconds={this.props.timerStore.seconds}
+                addScore={this.props.addScore} />
             <GameBoard 
                 onOpenCell={this.props.onOpenCell}
                 boardStore={this.props.boardStore}
@@ -57,6 +65,9 @@ const mapDispatchToProps = dispatch => {
         },
         incrementTimer: () => {
             dispatch(incrementSeconds());
+        },
+        addScore: (score) => {
+            dispatch(addScore(score));
         }
     }
 }

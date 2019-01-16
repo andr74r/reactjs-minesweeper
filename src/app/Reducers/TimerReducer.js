@@ -1,4 +1,4 @@
-import { INCREMENT_SECONDS_COUNT, RESTART_TIMER, STOP_TIMER } from '../Actions/TImerActions/TimerActionTypes';
+import { INCREMENT_SECONDS_COUNT, RESTART_TIMER, STOP_TIMER } from '../Actions/TimerActions/TimerActionTypes';
 
 export const timerReducer = function (state = { seconds: 0, isCounting: false }, action) {
     switch (action.type) {
