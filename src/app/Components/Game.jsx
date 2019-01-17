@@ -31,10 +31,10 @@ class Game extends React.Component {
                 board={this.props.boardStore}
                 timer={this.props.timerStore} />
             <MessageContainer 
-                isGameFinished={this.props.gameStore.isGameFinished}
-                isWin={this.props.gameStore.isWin}
                 seconds={this.props.timerStore.seconds}
-                addScore={this.props.addScore} />
+                addScore={this.props.addScore}
+                messageType={this.props.messageType}
+                 />
             <GameBoard 
                 onOpenCell={this.props.onOpenCell}
                 boardStore={this.props.boardStore}
@@ -47,7 +47,7 @@ class Game extends React.Component {
 const mapStateToProps = state => {
     return {
         boardStore: state.boardStore,
-        gameStore: state.gameStore,
+        messageType: state.messageStore,
         timerStore: state.timerStore
     }
 }

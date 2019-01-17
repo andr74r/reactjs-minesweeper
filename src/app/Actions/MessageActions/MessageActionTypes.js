@@ -1,0 +1,1 @@
+export const CHANGE_MESSAGE_TYPE = "changeMessageType";

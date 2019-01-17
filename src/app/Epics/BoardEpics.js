@@ -4,8 +4,10 @@ import { ofType } from 'redux-observable';
 
 import { OPEN_CELL, INIT_BOARD } from '../Actions/BoardActions/BoardActionTypes';
 import { blockBoard, openNearZero } from '../Actions/BoardActions/BoardActions';
-import { finishGame, startGame } from '../Actions/GameActions/GameActions';
+import { changeMessageType } from '../Actions/MessageActions/MessageActions';
 import { stopTimer, restartTimer } from '../Actions/TimerActions/TimerActions';
+
+import { messageTypes } from '../Consts/MessageTypes';
 
 export const openMineEpic = (action, state) => action.pipe(
     ofType(OPEN_CELL),
@@ -16,7 +18,7 @@ export const openMineEpic = (action, state) => action.pipe(
     }),
     mergeMap(() => of(
         blockBoard(),
-        finishGame(false),
+        changeMessageType(messageTypes.youLostMessage),
         stopTimer()
     ))
 );
@@ -38,7 +40,7 @@ export const openLastCellEpic = (action, state) => action.pipe(
     }),
     mergeMap(() => of(
         blockBoard(),
-        finishGame(true),
+        changeMessageType(messageTypes.youWinMessage),
         stopTimer()
     ))
 );
@@ -56,7 +58,7 @@ export const clickOnZero = (action, state) => action.pipe(
 export const initBoardEpic = (action, state) => action.pipe(
     ofType(INIT_BOARD),
     mergeMap(() => of(
-        startGame(),
+        changeMessageType(messageTypes.none),
         restartTimer()
     ))
 );
