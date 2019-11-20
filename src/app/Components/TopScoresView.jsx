@@ -5,7 +5,6 @@ import { TopScoresContainer } from './TopScores/TopScoresContainer';
 
 class TopScores extends React.Component {
     render() {
-        console.log(this.props);
         return <div>
             <TopScoresContainer 
                 topScoresStore = {this.props.topScoresStore}/>

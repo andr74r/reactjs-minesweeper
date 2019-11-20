@@ -1,5 +1,7 @@
 import { SET_TOPSCORES } from '../Actions/TopScoresActions/TopScoresActionTypes';
-import { topScoresService } from '../Services/TopScoresService';
+import { TopScoresService } from '../Services/TopScoresService';
+
+const topScoresService = new TopScoresService();
 
 export const topScoresReducer = function (state = topScoresService.getTopScores(), action) {
     switch (action.type) {

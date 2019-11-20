@@ -1,6 +1,8 @@
 import { INIT_BOARD, OPEN_CELL, CHANGE_LOCK_STATE, UPDATE_FLAG_STATE } from '../Actions/BoardActions/BoardActionTypes';
 
-import { boardService } from '../Services/BoardService';
+import { BoardService } from '../Services/BoardService';
+
+const boardService = new BoardService();
 
 export const boardReducer = function (state = {}, action) {
     switch (action.type) {

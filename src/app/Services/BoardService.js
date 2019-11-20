@@ -1,7 +1,7 @@
 import { getRandomInt } from '../Utils/RandomUtils';
 
-export const boardService = {
-    initBoard: (size) => {
+export class BoardService {
+    initBoard(size) {
         let cells = [];
         let minesCount = size.minesCount;
         let height = size.height;
@@ -42,7 +42,7 @@ export const boardService = {
         cells.forEach(row => 
             row.forEach(cell => {
                 if (!cell.isMine) {
-                    let indicesOfAdjacentCells = getIndicesOfAdjacentCells(cell.position.x, cell.position.y, width, height);
+                    let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(cell.position.x, cell.position.y, width, height);
                     let value = indicesOfAdjacentCells
                         .map(ind => cells[ind.i][ind.j])
                         .filter(cell => cell.isMine)
@@ -63,93 +63,101 @@ export const boardService = {
         };
 
         return board;
-    },
-    openCell: (position, board) => {
+    }
+
+    openCell(position, board) {
         let cell = board.cells[position.x][position.y];
         cell.isOpened = true;
-        cell.isLast = isLastCellOpened(board);
-
-        board.lastOpenedCell = cell;
 
         // automatic opening of adjacent cells
         if (cell.value == 0) {
-            openNearZeroUsingBFS(position, board);
+            this._openNearZeroUsingBFS(position, board);
         }
 
+        cell.isLast = this._isLastCellOpened(board);
+
+        board.lastOpenedCell = cell;
+
         return {...board};
-    },
-    changeLockState: (value, board) => {
+    }
+
+    changeLockState(value, board) {
         board.isLocked = value;
 
         return {...board};
-    },
-    updateFlagState: (position, board) => {
+    }
+
+    updateFlagState(position, board) {
         let cell = board.cells[position.x][position.y];
 
         cell.hasFlag = !cell.hasFlag;
 
         return {...board};
     }
-}
 
-const isLastCellOpened = (board) => {
-    let areCellsOpened = true;
+    /**
+     * PRIVATE
+     */
 
-    board.cells.forEach(row => {
-        row.forEach(cell => {
-            if (!cell.isMine && !cell.isOpened){
-                areCellsOpened = false;
-            }
-        })
-    });
-
-    return areCellsOpened;
-}
-
-const cellExists = (i, j, maxWidth, maxHeight) => {
-    return i >= 0 && j >= 0 && i < maxWidth && j < maxHeight;
-}
-
-const addCellIfExists = (i, j, cellsIndexes, maxWidth, maxHeight) => {
-    if (cellExists(i, j, maxWidth, maxHeight)){
-        cellsIndexes.push({
-            i: i,
-            j: j
-        });
-    }
-}
-
-const getIndicesOfAdjacentCells = (i, j, maxWidth, maxHeight) => {
-    let adjacentCells = [];
-
-    addCellIfExists(i + 1, j + 1, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i + 1, j, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i, j + 1, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i - 1, j - 1, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i - 1, j, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i, j - 1, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i + 1, j - 1, adjacentCells, maxWidth, maxHeight);
-    addCellIfExists(i - 1, j + 1, adjacentCells, maxWidth, maxHeight);
-
-    return adjacentCells;
-}
-
-const openNearZeroUsingBFS = (position, board) => {
-
-    let indicesOfAdjacentCells = getIndicesOfAdjacentCells(position.x, position.y, board.width, board.height);
-    let cells = board.cells;
-
-    let notOpenedAdjacentCells = indicesOfAdjacentCells
-        .map(ind => cells[ind.i][ind.j])
-        .filter(cell => !cell.isOpened);
+    _isLastCellOpened(board) {
+        let areCellsOpened = true;
     
-    let notOpenedAdjacentCellsWithZero = notOpenedAdjacentCells
-        .filter(cell => cell.value == 0);
-
-    notOpenedAdjacentCells.forEach(cell => {
-        cell.isOpened = true
-    })
-
-    notOpenedAdjacentCellsWithZero.forEach(cell => 
-        openNearZeroUsingBFS(cell.position, board));
+        board.cells.forEach(row => {
+            row.forEach(cell => {
+                if (!cell.isMine && !cell.isOpened){
+                    areCellsOpened = false;
+                }
+            })
+        });
+    
+        return areCellsOpened;
+    }
+    
+    _cellExists(i, j, maxWidth, maxHeight) {
+        return i >= 0 && j >= 0 && i < maxWidth && j < maxHeight;
+    }
+    
+    _addCellIfExists(i, j, cellsIndexes, maxWidth, maxHeight) {
+        if (this._cellExists(i, j, maxWidth, maxHeight)){
+            cellsIndexes.push({
+                i: i,
+                j: j
+            });
+        }
+    }
+    
+    _getIndicesOfAdjacentCells(i, j, maxWidth, maxHeight) {
+        let adjacentCells = [];
+    
+        this._addCellIfExists(i + 1, j + 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i + 1, j, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i, j + 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i - 1, j - 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i - 1, j, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i, j - 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i + 1, j - 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i - 1, j + 1, adjacentCells, maxWidth, maxHeight);
+    
+        return adjacentCells;
+    }
+    
+    _openNearZeroUsingBFS(position, board) {
+    
+        let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(position.x, position.y, board.width, board.height);
+        let cells = board.cells;
+    
+        let notOpenedAdjacentCells = indicesOfAdjacentCells
+            .map(ind => cells[ind.i][ind.j])
+            .filter(cell => !cell.isOpened);
+        
+        let notOpenedAdjacentCellsWithZero = notOpenedAdjacentCells
+            .filter(cell => cell.value == 0);
+    
+        notOpenedAdjacentCells.forEach(cell => {
+            cell.isOpened = true
+        })
+    
+        notOpenedAdjacentCellsWithZero.forEach(cell => 
+            this._openNearZeroUsingBFS(cell.position, board));
+    }
 }
