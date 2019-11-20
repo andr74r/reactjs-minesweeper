@@ -71,15 +71,15 @@ export const boardService = {
 
         board.lastOpenedCell = cell;
 
+        // automatic opening of adjacent cells
+        if (cell.value == 0) {
+            openNearZeroUsingBFS(position, board);
+        }
+
         return {...board};
     },
     changeLockState: (value, board) => {
         board.isLocked = value;
-
-        return {...board};
-    },
-    openNearZero: (position, board) => {
-        openNearZeroUsingBFS(position, board);
 
         return {...board};
     },

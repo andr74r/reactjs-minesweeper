@@ -3,7 +3,7 @@ import { of } from 'rxjs/observable/of';
 import { ofType } from 'redux-observable';
 
 import { OPEN_CELL, INIT_BOARD } from '../Actions/BoardActions/BoardActionTypes';
-import { blockBoard, openNearZero } from '../Actions/BoardActions/BoardActions';
+import { blockBoard } from '../Actions/BoardActions/BoardActions';
 import { changeMessageType } from '../Actions/MessageActions/MessageActions';
 import { stopTimer, restartTimer } from '../Actions/TimerActions/TimerActions';
 
@@ -28,12 +28,6 @@ export const openLastCellEpic = (action, state) => action.pipe(
         stopTimer()
     ))
 );
-
-export const clickOnZero = (action, state) => action.pipe(
-    ofType(OPEN_CELL),
-    filter(() => state.value.boardStore.lastOpenedCell.value == 0),
-    mergeMap(action => of(openNearZero(action.position)))
-)
 
 export const initBoardEpic = (action, state) => action.pipe(
     ofType(INIT_BOARD),
