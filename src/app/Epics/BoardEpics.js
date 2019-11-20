@@ -11,11 +11,7 @@ import { messageTypes } from '../Consts/MessageTypes';
 
 export const openMineEpic = (action, state) => action.pipe(
     ofType(OPEN_CELL),
-    filter(action => {
-        let position = action.position;
-        let cell = state.value.boardStore.cells[position.x][position.y];
-        return cell.isMine;
-    }),
+    filter(() => state.value.boardStore.lastOpenedCell.isMine),
     mergeMap(() => of(
         blockBoard(),
         changeMessageType(messageTypes.youLostMessage),
@@ -25,19 +21,7 @@ export const openMineEpic = (action, state) => action.pipe(
 
 export const openLastCellEpic = (action, state) => action.pipe(
     ofType(OPEN_CELL),
-    filter(action => {
-        let boardStore = state.value.boardStore;
-        let cells = boardStore.cells;
-        let notMineCellsCount =  boardStore.height * boardStore.width - boardStore.minesCount;
-        let openedNotMineCellsCount = 0;
-        
-        cells
-            .forEach(row => openedNotMineCellsCount += row
-                .filter(cell => !cell.isMine && cell.isOpened)
-                .length);
-        
-        return openedNotMineCellsCount == notMineCellsCount;
-    }),
+    filter(() => state.value.boardStore.lastOpenedCell.isLast),
     mergeMap(() => of(
         blockBoard(),
         changeMessageType(messageTypes.youWinMessage),
@@ -47,11 +31,7 @@ export const openLastCellEpic = (action, state) => action.pipe(
 
 export const clickOnZero = (action, state) => action.pipe(
     ofType(OPEN_CELL),
-    filter(action => {
-        let position = action.position;
-        let cell = state.value.boardStore.cells[position.x][position.y];
-        return cell.value == 0;
-    }),
+    filter(() => state.value.boardStore.lastOpenedCell.value == 0),
     mergeMap(action => of(openNearZero(action.position)))
 )
 

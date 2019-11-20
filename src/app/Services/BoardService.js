@@ -15,6 +15,7 @@ export const boardService = {
                     value: 0,
                     isOpened: false,
                     isMine: false,
+                    isLast: false,
                     position: {
                         x: i,
                         y: j
@@ -57,7 +58,8 @@ export const boardService = {
             width: width,
             minesCount: minesCount,
             isLocked: false,
-            hasFlag: false
+            hasFlag: false,
+            lastOpenedCell: null
         };
 
         return board;
@@ -65,6 +67,9 @@ export const boardService = {
     openCell: (position, board) => {
         let cell = board.cells[position.x][position.y];
         cell.isOpened = true;
+        cell.isLast = isLastCellOpened(board);
+
+        board.lastOpenedCell = cell;
 
         return {...board};
     },
@@ -87,13 +92,26 @@ export const boardService = {
     }
 }
 
+const isLastCellOpened = (board) => {
+    let areCellsOpened = true;
 
-const checkIfCellExists = (i, j, maxWidth, maxHeight) => {
+    board.cells.forEach(row => {
+        row.forEach(cell => {
+            if (!cell.isMine && !cell.isOpened){
+                areCellsOpened = false;
+            }
+        })
+    });
+
+    return areCellsOpened;
+}
+
+const cellExists = (i, j, maxWidth, maxHeight) => {
     return i >= 0 && j >= 0 && i < maxWidth && j < maxHeight;
 }
 
 const addCellIfExists = (i, j, cellsIndexes, maxWidth, maxHeight) => {
-    if (checkIfCellExists(i, j, maxWidth, maxHeight)){
+    if (cellExists(i, j, maxWidth, maxHeight)){
         cellsIndexes.push({
             i: i,
             j: j
