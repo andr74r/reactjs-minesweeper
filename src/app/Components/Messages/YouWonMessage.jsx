@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import '../../Styles/message';
+
 export class YouWonMessage extends React.Component {
     constructor(props)
     {
@@ -29,7 +31,7 @@ export class YouWonMessage extends React.Component {
     }
 
     render() {
-        return <div>
+        return <div className='message-content'>
             <div>You have won! <Link to = '/topscores'>List of records.</Link></div>
             <form onSubmit={this.onSubmit}>
                 Enter your name: <input type='text' value={this.state.name} onChange={this.onNameChanged}/>

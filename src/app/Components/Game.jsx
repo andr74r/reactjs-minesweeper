@@ -8,6 +8,9 @@ import { MessageContainer } from './Messages/MessageContainer';
 import { initBoard, openCell, updateFlagState } from '../Actions/BoardActions/BoardActions';
 import { incrementSeconds } from '../Actions/TimerActions/TimerActions';
 import { addScore } from '../Actions/TopScoresActions/TopScoresAcions';
+import { changeMessageType } from '../Actions/MessageActions/MessageActions';
+
+import { messageTypes } from '../Consts/MessageTypes';
 
 class Game extends React.Component {
     constructor(props)
@@ -34,6 +37,8 @@ class Game extends React.Component {
                 seconds={this.props.timerStore.seconds}
                 addScore={this.props.addScore}
                 messageType={this.props.messageType}
+                closeMessage={this.props.closeMessage}
+                startGame={this.props.onPlayClick}
                  />
             <GameBoard 
                 onOpenCell={this.props.onOpenCell}
@@ -56,6 +61,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onPlayClick: () => {
             dispatch(initBoard(5, 5, 4))
+        },
+        closeMessage: () => {
+            dispatch(changeMessageType(messageTypes.none))
         },
         onOpenCell: (position) => {
             dispatch(openCell(position));
