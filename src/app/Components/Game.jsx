@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 import { GameBoard } from './GameBoard/GameBoard';
 import { GameMenu } from './GameMenu/GameMenu';
 import { MessageContainer } from './Messages/MessageContainer';
@@ -28,23 +32,33 @@ class Game extends React.Component {
 
     render() {
         console.log(this.props);
-        return <div>
-            <GameMenu 
-                onPlayClick={this.props.onPlayClick}
-                board={this.props.boardStore}
-                timer={this.props.timerStore} />
+        
+        return <React.Fragment>
             <MessageContainer 
-                seconds={this.props.timerStore.seconds}
-                addScore={this.props.addScore}
                 messageType={this.props.messageType}
                 closeMessage={this.props.closeMessage}
                 startGame={this.props.onPlayClick}
-                 />
-            <GameBoard 
-                onOpenCell={this.props.onOpenCell}
-                boardStore={this.props.boardStore}
-                onUpdateFlagState={this.props.onUpdateFlagState} />
-        </div>
+            />
+            <Container fluid>
+                <Row className="justify-content-md-center">
+                    <Col xs lg="2">
+                        <GameMenu 
+                            onPlayClick={this.props.onPlayClick}
+                            board={this.props.boardStore}
+                            timer={this.props.timerStore} />
+                    </Col>
+                </Row>
+                
+                <Row className="justify-content-md-center">
+                    <Col xs lg="2">
+                        <GameBoard 
+                            onOpenCell={this.props.onOpenCell}
+                            boardStore={this.props.boardStore}
+                            onUpdateFlagState={this.props.onUpdateFlagState} />
+                    </Col>
+                </Row>
+            </Container>
+        </React.Fragment>
     }
 }
 

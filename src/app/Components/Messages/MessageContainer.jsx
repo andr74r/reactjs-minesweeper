@@ -6,7 +6,7 @@ import { messageTypes } from '../../Consts/MessageTypes';
 import { YouLostMessage } from './YouLostMessage';
 import { YouWonMessage } from './YouWonMessage';
 
-import '../../Styles/message';
+import Modal from 'react-bootstrap/Modal'
 
 export class MessageContainer extends React.Component {
     render() {
@@ -20,8 +20,8 @@ export class MessageContainer extends React.Component {
                 break;
             case messageTypes.youWinMessage:
                 message = <YouWonMessage
-                    seconds={this.props.seconds}
-                    addScore={this.props.addScore}/>
+                    closeMessage={this.props.closeMessage}
+                    startGame={this.props.startGame}/>
                 break;
             case messageTypes.initialScreen:
             case messageTypes.none:
@@ -29,13 +29,12 @@ export class MessageContainer extends React.Component {
                 message = null;
         }
 
-        if (!message) {
-            return null;
-        }
-
-        return <div className='message'>
+        return <Modal 
+            show={!!message} 
+            onHide={this.props.closeMessage}
+            >
             { message }
-        </div>
+        </Modal>
     }
 }
 

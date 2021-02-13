@@ -1,42 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import '../../Styles/message';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 export class YouWonMessage extends React.Component {
-    constructor(props)
-    {
-        super(props);
-
-        this.state = {
-            name: ''
-        };
-
-        this.onNameChanged = this.onNameChanged.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onNameChanged(e) {
-        this.setState({
-            name: e.target.value
-        });
-    }
-
-    onSubmit(e) {
-        this.props.addScore({
-            name: this.state.name || 'unknown',
-            score: this.props.seconds
-        })
-        e.preventDefault();
-    }
-
     render() {
-        return <div className='message-content'>
-            <div>You have won! <Link to = '/topscores'>List of records.</Link></div>
-            <form onSubmit={this.onSubmit}>
-                Enter your name: <input type='text' value={this.state.name} onChange={this.onNameChanged}/>
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
+        return <React.Fragment>
+            <Modal.Header closeButton>
+                <Modal.Title>You have won!</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Footer>
+                <Button variant="secondary" onClick={this.props.startGame}>
+                    Start New Game
+                </Button>
+                <Button variant="primary" onClick={this.props.closeMessage}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </React.Fragment>
     }
 }

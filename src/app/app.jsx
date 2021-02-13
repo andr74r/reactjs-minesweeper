@@ -13,6 +13,8 @@ import { rootReducer } from './Reducers/RootReducer';
 
 import { rootEpic } from './Epics/RootEpic';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const epicMiddleware = createEpicMiddleware();
 const store = createStore(rootReducer, applyMiddleware(epicMiddleware));

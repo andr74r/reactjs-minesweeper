@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import FlagIcon from '../../Icons/flag.ico';
+import MineIcon from '../../Icons/mine.jpg'
+
 export class BoardCell extends React.Component {
 
     constructor(props){
@@ -10,15 +13,39 @@ export class BoardCell extends React.Component {
     }
 
     getButtonStyle(cell){
+
+        const color = cell.isOpened 
+            ? !cell.isMine 
+                ? '#90EE90'
+                : '#FF5050'
+            : '#20B2AA';
+
         return {
             height: 25, 
             width: 25, 
-            backgroundColor: cell.isOpened 
-                ? !cell.isMine 
-                    ? '#90EE90'
-                    : '#FF5050'
-                : '#20B2AA'
+            backgroundSize: 15,
+            backgroundColor: color,
+            backgroundImage: `url(${this.getButtonImg(cell)})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat"
         }
+    }
+
+    getButtonText(cell) {
+        if (!cell.isOpened || cell.isMine)
+            return '';
+
+        return cell.value != 0 ? cell.value : '';
+    }
+
+    getButtonImg(cell) {
+        if (!cell.isOpened)
+            return cell.hasFlag ? FlagIcon : '';
+
+        if (cell.isMine)
+            return MineIcon;
+
+        return '';
     }
 
     onClick(e, cell) {
@@ -32,16 +59,6 @@ export class BoardCell extends React.Component {
         
         e.preventDefault();
         return false;
-    }
-
-    getButtonText(cell) {
-        if (!cell.isOpened)
-            return cell.hasFlag ? 'F' : '';
-
-        if (cell.isMine)
-            return 'M';
-
-        return cell.value != 0 ? cell.value : '';
     }
 
     render() {
