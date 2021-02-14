@@ -15,15 +15,19 @@ export class ModePicker extends React.Component {
         
             <Modal.Body>
                 <table>
-                    <tr>
-                        <th>Game</th>
-                        <th>Height</th>
-                        <th>Width</th>
-                        <th>Mines</th>
-                    </tr>
-                    {this.renderGameMode('Begginer', gameModes.beginner)}
-                    {this.renderGameMode('Intermediate', gameModes.intermediate)}
-                    {this.renderGameMode('Expert', gameModes.expert)}
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Height</th>
+                            <th>Width</th>
+                            <th>Mines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderGameMode('Begginer', gameModes.beginner)}
+                        {this.renderGameMode('Intermediate', gameModes.intermediate)}
+                        {this.renderGameMode('Expert', gameModes.expert)}
+                    </tbody>
                 </table>
             </Modal.Body>
         </React.Fragment>
