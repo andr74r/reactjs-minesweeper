@@ -7,6 +7,7 @@ import { YouLostMessage } from './YouLostMessage';
 import { YouWonMessage } from './YouWonMessage';
 
 import Modal from 'react-bootstrap/Modal'
+import { ModePicker } from './ModePicker';
 
 export class MessageContainer extends React.Component {
     render() {
@@ -22,6 +23,12 @@ export class MessageContainer extends React.Component {
                 message = <YouWonMessage
                     closeMessage={this.props.closeMessage}
                     startGame={this.props.startGame}/>
+                break;
+            case messageTypes.modePicker:
+                message = <ModePicker 
+                    closeMessage={this.props.closeMessage}
+                    setBoard={this.props.setBoard}
+                />
                 break;
             case messageTypes.initialScreen:
             case messageTypes.none:

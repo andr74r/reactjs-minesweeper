@@ -11,6 +11,7 @@ import { addScore } from '../../Actions/TopScoresActions/TopScoresAcions';
 import { changeMessageType } from '../../Actions/MessageActions/MessageActions';
 
 import { messageTypes } from '../../Consts/MessageTypes';
+import { gameModes } from '../../Consts/GameModes';
 
 import './style.css'
 
@@ -23,7 +24,7 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onPlayClick();
+        this.props.setBoard(gameModes.beginner);
     }
 
     componentWillUnmount() {
@@ -33,13 +34,12 @@ class Game extends React.Component {
 
 
     render() {
-        console.log(this.props);
-        
         return <div className="game">
             <MessageContainer 
                 messageType={this.props.messageType}
                 closeMessage={this.props.closeMessage}
                 startGame={this.props.onPlayClick}
+                setBoard={this.props.setBoard}
             />
             <GameMenu 
                 onPlayClick={this.props.onPlayClick}
@@ -66,7 +66,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPlayClick: () => {
-            dispatch(initBoard(5, 5, 4))
+            dispatch(changeMessageType(messageTypes.modePicker))
+        },
+        setBoard: (settings) => {
+            dispatch(initBoard(settings.height, settings.width, settings.mines))
         },
         closeMessage: () => {
             dispatch(changeMessageType(messageTypes.none))

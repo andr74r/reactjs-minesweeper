@@ -1,6 +1,6 @@
 export const messageTypes = {
     youLostMessage: 'youLostMessage',
     youWinMessage: 'youWinMessage',
-    initialScreen: 'initialScreen',
+    modePicker: 'modePicker',
     none: 'none'
 }

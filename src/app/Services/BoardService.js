@@ -8,9 +8,9 @@ export class BoardService {
         let width = size.width;
     
         // init empty board
-        for (var i = 0; i < width; i++) {
+        for (var i = 0; i < height; i++) {
             cells.push([]);
-            for (var j = 0; j < height; j++) {
+            for (var j = 0; j < width; j++) {
                 cells[i].push({
                     value: 0,
                     isOpened: false,
@@ -27,8 +27,8 @@ export class BoardService {
         // set mines
         let currentMinesCount = 0;
         while(currentMinesCount < minesCount){
-            let i = getRandomInt(0, width);
-            let j = getRandomInt(0, height);
+            let i = getRandomInt(0, height);
+            let j = getRandomInt(0, width);
 
             let cell = cells[i][j];
             if (!cell.isMine) {
@@ -42,7 +42,7 @@ export class BoardService {
         cells.forEach(row => 
             row.forEach(cell => {
                 if (!cell.isMine) {
-                    let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(cell.position.x, cell.position.y, width, height);
+                    let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(cell.position.x, cell.position.y, height, width);
                     let value = indicesOfAdjacentCells
                         .map(ind => cells[ind.i][ind.j])
                         .filter(cell => cell.isMine)
@@ -126,24 +126,24 @@ export class BoardService {
         }
     }
     
-    _getIndicesOfAdjacentCells(i, j, maxWidth, maxHeight) {
+    _getIndicesOfAdjacentCells(i, j, maxHeight, maxWidth) {
         let adjacentCells = [];
     
-        this._addCellIfExists(i + 1, j + 1, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i + 1, j, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i, j + 1, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i - 1, j - 1, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i - 1, j, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i, j - 1, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i + 1, j - 1, adjacentCells, maxWidth, maxHeight);
-        this._addCellIfExists(i - 1, j + 1, adjacentCells, maxWidth, maxHeight);
+        this._addCellIfExists(i + 1, j + 1, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i + 1, j, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i, j + 1, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i - 1, j - 1, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i - 1, j, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i, j - 1, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i + 1, j - 1, adjacentCells, maxHeight, maxWidth);
+        this._addCellIfExists(i - 1, j + 1, adjacentCells, maxHeight, maxWidth);
     
         return adjacentCells;
     }
     
     _openNearZeroUsingBFS(position, board) {
     
-        let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(position.x, position.y, board.width, board.height);
+        let indicesOfAdjacentCells = this._getIndicesOfAdjacentCells(position.x, position.y, board.height, board.width);
         let cells = board.cells;
     
         let notOpenedAdjacentCells = indicesOfAdjacentCells
