@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { messageTypes } from '../../Consts/MessageTypes';
+import { messageTypes } from '../../../Consts/MessageTypes';
 
 import { YouLostMessage } from './YouLostMessage';
 import { YouWonMessage } from './YouWonMessage';

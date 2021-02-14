@@ -1,20 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-
 import { GameBoard } from './GameBoard/GameBoard';
 import { GameMenu } from './GameMenu/GameMenu';
 import { MessageContainer } from './Messages/MessageContainer';
 
-import { initBoard, openCell, updateFlagState } from '../Actions/BoardActions/BoardActions';
-import { incrementSeconds } from '../Actions/TimerActions/TimerActions';
-import { addScore } from '../Actions/TopScoresActions/TopScoresAcions';
-import { changeMessageType } from '../Actions/MessageActions/MessageActions';
+import { initBoard, openCell, updateFlagState } from '../../Actions/BoardActions/BoardActions';
+import { incrementSeconds } from '../../Actions/TimerActions/TimerActions';
+import { addScore } from '../../Actions/TopScoresActions/TopScoresAcions';
+import { changeMessageType } from '../../Actions/MessageActions/MessageActions';
 
-import { messageTypes } from '../Consts/MessageTypes';
+import { messageTypes } from '../../Consts/MessageTypes';
+
+import './style.css'
 
 class Game extends React.Component {
     constructor(props)
@@ -22,6 +20,10 @@ class Game extends React.Component {
         super(props);
 
         this.interval = setInterval(props.incrementTimer, 1000);
+    }
+
+    componentDidMount() {
+        this.props.onPlayClick();
     }
 
     componentWillUnmount() {
@@ -33,32 +35,22 @@ class Game extends React.Component {
     render() {
         console.log(this.props);
         
-        return <React.Fragment>
+        return <div className="game">
             <MessageContainer 
                 messageType={this.props.messageType}
                 closeMessage={this.props.closeMessage}
                 startGame={this.props.onPlayClick}
             />
-            <Container fluid>
-                <Row className="justify-content-md-center">
-                    <Col xs lg="2">
-                        <GameMenu 
-                            onPlayClick={this.props.onPlayClick}
-                            board={this.props.boardStore}
-                            timer={this.props.timerStore} />
-                    </Col>
-                </Row>
-                
-                <Row className="justify-content-md-center">
-                    <Col xs lg="2">
-                        <GameBoard 
-                            onOpenCell={this.props.onOpenCell}
-                            boardStore={this.props.boardStore}
-                            onUpdateFlagState={this.props.onUpdateFlagState} />
-                    </Col>
-                </Row>
-            </Container>
-        </React.Fragment>
+            <GameMenu 
+                onPlayClick={this.props.onPlayClick}
+                board={this.props.boardStore}
+                timer={this.props.timerStore} />
+            
+            <GameBoard 
+                onOpenCell={this.props.onOpenCell}
+                boardStore={this.props.boardStore}
+                onUpdateFlagState={this.props.onUpdateFlagState} />
+        </div>
     }
 }
 

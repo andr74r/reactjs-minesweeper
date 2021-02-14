@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import { MinesCounter } from './MinesCounter';
 import { Timer } from './Timer';
+import { Smile } from './Smile';
+
+import './styles.css';
 
 export class GameMenu extends React.Component {
     render() {
-        return <div>
-            <button onClick={e => this.props.onPlayClick()}>
-                Play game
-            </button>
+        return <div className="menu">
             {!!this.props.board.cells 
                 ? <MinesCounter board={this.props.board}/>
                 : null }
+            <Smile onPlayClick={this.props.onPlayClick}/>
             {!!this.props.board.cells
                 ? <Timer timer={this.props.timer} />
                 : null }

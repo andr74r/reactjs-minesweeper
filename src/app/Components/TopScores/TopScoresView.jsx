@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { TopScoresContainer } from './TopScores/TopScoresContainer';
+import { TopScoresContainer } from './TopScoresContainer';
 
 class TopScores extends React.Component {
     render() {

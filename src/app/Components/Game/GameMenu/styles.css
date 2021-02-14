@@ -1,0 +1,25 @@
+.menu {
+    width: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.menu__minesCounter {
+    width: 30px;
+    text-align: center;
+}
+
+.menu__timer {
+    width: 30px;
+    text-align: center;
+}
+
+.menu__smile {
+    height: 40px;
+    width: 40px;
+    border: outset 4px;
+}

@@ -8,8 +8,8 @@ export class MinesCounter extends React.Component {
             .map(row => row.filter(c => c.hasFlag).length)
             .reduce((a, b) => a + b, 0);
 
-        return <div>
-            Mines Count : {board.minesCount - flagsCount}
+        return <div className="menu__minesCounter">
+            {board.minesCount - flagsCount}
         </div>
     }
 }

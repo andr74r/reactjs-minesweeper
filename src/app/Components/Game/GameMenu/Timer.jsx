@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './styles.css';
+
 export class Timer extends React.Component {
 
     constructor(props){
@@ -8,8 +10,8 @@ export class Timer extends React.Component {
     }
 
     render() {
-        return <div>
-            Seconds: {this.props.timer.seconds}
+        return <div className="menu__timer">
+            {this.props.timer.seconds}
         </div>
     }
 }

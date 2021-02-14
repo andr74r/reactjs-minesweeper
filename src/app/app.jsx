@@ -6,8 +6,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable';
 
-import { GameView } from './Components/Game';
-import { TopScoresView } from './Components/TopScoresView';
+import { GameView } from './Components/Game/Game';
+import { TopScoresView } from './Components/TopScores/TopScoresView';
 
 import { rootReducer } from './Reducers/RootReducer';
 

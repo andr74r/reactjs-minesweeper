@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 import { BoardRow } from './BoardRow';
 
+import './style.css'
+
 export class GameBoard extends React.Component {
     render() {
         let cells = this.props.boardStore.cells;
         let isBoardLocked = this.props.boardStore.isLocked;
 
-        return <div>
-            <table>
+        return <React.Fragment>
+            <table className="board">
                 <tbody>
                     {!!cells
                         ? cells.map((row, i) =>
@@ -22,7 +24,7 @@ export class GameBoard extends React.Component {
                         : null}
                 </tbody>
             </table>
-        </div>
+        </React.Fragment>
     }
 }
 

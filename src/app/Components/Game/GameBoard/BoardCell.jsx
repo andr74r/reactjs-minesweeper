@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FlagIcon from '../../Icons/flag.ico';
-import MineIcon from '../../Icons/mine.jpg'
+import FlagIcon from '../../../Icons/flag.ico';
+import MineIcon from '../../../Icons/mine.jpg';
 
 export class BoardCell extends React.Component {
 
@@ -12,8 +12,7 @@ export class BoardCell extends React.Component {
         this.onLeftClick = this.onLeftClick.bind(this);
     }
 
-    getButtonStyle(cell){
-
+    getButtonStyle(cell) {
         const color = cell.isOpened 
             ? !cell.isMine 
                 ? '#90EE90'
